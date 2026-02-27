@@ -1,0 +1,797 @@
+<!-- Restaurant.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Star Kitchen | Modern Restaurant Website</title>
+    <meta
+      name="description"
+      content="A modern, mobile-friendly restaurant website with menu highlights, reservations, hours, and contact info."
+    />
+
+    <style>
+      :root {
+        --bg: #0b0d10;
+        --surface: #121722;
+        --card: rgba(255, 255, 255, 0.06);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #f4f7fb;
+        --muted: rgba(244, 247, 251, 0.72);
+        --accent: #ffb86b;   /* warm orange */
+        --accent2: #77c4ff;  /* cool blue */
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+        --radius: 18px;
+        --max: 1120px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background:
+          radial-gradient(900px 700px at 18% 10%, rgba(255, 184, 107, 0.16), transparent 60%),
+          radial-gradient(900px 700px at 90% 20%, rgba(119, 196, 255, 0.14), transparent 55%),
+          var(--bg);
+        line-height: 1.55;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      .container { width: min(var(--max), 92vw); margin: 0 auto; }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 13, 16, 0.72);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 0;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(255,184,107,0.95), rgba(119,196,255,0.65));
+        box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+        position: relative;
+        overflow: hidden;
+      }
+      .logo::after{
+        content:"✦";
+        position:absolute;
+        inset:0;
+        display:grid;
+        place-items:center;
+        font-weight:900;
+        color: rgba(9, 16, 24, 0.85);
+        font-size: 18px;
+        transform: translateY(-1px);
+      }
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+
+      /* CSS-only mobile menu */
+      #menu { display: none; }
+      .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .menu-toggle span,
+      .menu-toggle span::before,
+      .menu-toggle span::after {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 10px;
+        position: relative;
+      }
+      .menu-toggle span::before { position: absolute; top: -6px; left: 0; }
+      .menu-toggle span::after { position: absolute; top: 6px; left: 0; }
+
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 14px;
+      }
+      .navlinks a {
+        padding: 10px 10px;
+        border-radius: 14px;
+        transition: background 180ms ease, color 180ms ease;
+      }
+      .navlinks a:hover {
+        background: rgba(255,255,255,0.06);
+        color: var(--text);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 14px;
+        border-radius: 14px;
+        font-weight: 900;
+        font-size: 14px;
+        border: 1px solid transparent;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, rgba(255,184,107,0.95), rgba(255,184,107,0.65));
+        color: #0b0d10;
+        box-shadow: var(--shadow);
+      }
+      .btn.primary:hover { transform: translateY(-1px); }
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--border);
+        color: var(--text);
+      }
+      .btn.ghost:hover { background: rgba(255, 255, 255, 0.08); }
+
+      /* Hero */
+      .hero { padding: 56px 0 28px; }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 22px;
+        align-items: center;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: var(--accent);
+        box-shadow: 0 0 0 6px rgba(255, 184, 107, 0.10);
+      }
+      h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(34px, 4.2vw, 54px);
+        line-height: 1.06;
+        letter-spacing: -0.8px;
+      }
+      .lead {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 60ch;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .mini {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .hero-card {
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .mock {
+        height: 320px;
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background:
+          linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+          radial-gradient(900px 420px at 80% 30%, rgba(255,184,107,0.28), transparent 55%),
+          radial-gradient(700px 360px at 20% 70%, rgba(119,196,255,0.18), transparent 60%),
+          linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+      }
+      .mock::after {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0,0,0,0.22);
+      }
+      .mock-badges {
+        position: absolute;
+        inset: 0;
+        padding: 18px;
+        display: grid;
+        gap: 10px;
+        align-content: end;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--text);
+        font-weight: 900;
+        font-size: 13px;
+        width: fit-content;
+      }
+
+      /* Sections */
+      section { padding: 44px 0; }
+      .section-head {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: -0.4px;
+      }
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 75ch;
+        font-size: 14px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .card {
+        border-radius: var(--radius);
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      }
+      .card h3 { margin: 8px 0 6px; font-size: 16px; }
+      .card p { margin: 0; color: var(--muted); font-size: 14px; }
+      .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 184, 107, 0.14);
+        border: 1px solid rgba(255, 184, 107, 0.28);
+        font-weight: 900;
+      }
+
+      /* Menu */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .menu-block {
+        padding: 0;
+        overflow: hidden;
+      }
+      .menu-top {
+        padding: 18px;
+        border-bottom: 1px solid var(--border);
+        background:
+          radial-gradient(500px 240px at 70% 20%, rgba(255, 184, 107, 0.22), transparent 60%),
+          radial-gradient(420px 240px at 20% 80%, rgba(119, 196, 255, 0.14), transparent 60%),
+          rgba(0,0,0,0.18);
+      }
+      .menu-body { padding: 16px 18px 18px; }
+      .menu-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px dashed rgba(255,255,255,0.14);
+      }
+      .menu-item:last-child { border-bottom: none; padding-bottom: 0; }
+      .menu-item b { letter-spacing: -0.2px; }
+      .menu-item small { display: block; color: var(--muted); font-weight: 700; margin-top: 4px; }
+      .price { font-weight: 900; color: rgba(255, 255, 255, 0.92); }
+
+      /* Specials / Cards */
+      .tagrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+      .tag {
+        font-size: 12px;
+        color: var(--muted);
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(0,0,0,0.18);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 800;
+      }
+
+      /* Reviews */
+      .quotes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .quote {
+        display: grid;
+        gap: 10px;
+      }
+      .quote p { margin: 0; color: var(--muted); font-size: 14px; }
+      .quote .who {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: rgba(244,247,251,0.9);
+        font-weight: 900;
+        font-size: 14px;
+      }
+      .stars { color: rgba(255,184,107,0.92); font-weight: 900; letter-spacing: 0.6px; }
+
+      /* Reservations */
+      .reserve-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+      form { display: grid; gap: 10px; }
+      label {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 900;
+      }
+      input, textarea, select {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.22);
+        color: var(--text);
+        outline: none;
+      }
+      input:focus, textarea:focus, select:focus {
+        border-color: rgba(255, 184, 107, 0.55);
+        box-shadow: 0 0 0 4px rgba(255, 184, 107, 0.12);
+      }
+      textarea { min-height: 120px; resize: vertical; }
+      .hint { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+
+      /* Hours card */
+      .hours {
+        display: grid;
+        gap: 10px;
+      }
+      .hours-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        font-weight: 800;
+        color: rgba(244,247,251,0.92);
+      }
+      .hours-row span { color: var(--muted); font-weight: 800; }
+
+      /* Footer */
+      footer {
+        padding: 34px 0 44px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .grid-3 { grid-template-columns: 1fr; }
+        .menu-grid { grid-template-columns: 1fr; }
+        .quotes { grid-template-columns: 1fr; }
+        .reserve-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 720px) {
+        .menu-toggle { display: inline-flex; }
+        .navlinks { display: none; width: 100%; padding: 8px 0 2px; }
+        #menu:checked ~ header .navlinks { display: grid; gap: 6px; }
+        #menu:checked ~ header .btn.primary { width: 100%; justify-content: center; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="checkbox" id="menu" />
+
+    <header>
+      <div class="container">
+        <nav class="nav" aria-label="Primary">
+          <a class="brand" href="#top">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+              North Star Kitchen
+              <small>Seasonal comfort food • Downtown</small>
+            </div>
+          </a>
+
+          <label class="menu-toggle" for="menu" aria-label="Toggle menu">
+            <span aria-hidden="true"></span>
+          </label>
+
+          <div class="navlinks">
+            <a href="#menu-section">Menu</a>
+            <a href="#specials">Specials</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#reserve">Reservations</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <a class="btn primary" href="#reserve">Book a table</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="pill"><span class="dot"></span> Walk-ins welcome • Online reservations • Local ingredients</div>
+              <h1>A warm, modern spot for dinner, drinks, and weekend brunch.</h1>
+              <p class="lead">
+                North Star Kitchen serves seasonal comfort food with a chef-driven twist. Fast service, cozy vibes,
+                and a menu that changes just enough to keep things interesting.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn primary" href="#reserve">Reserve a table</a>
+                <a class="btn ghost" href="#menu-section">View menu</a>
+              </div>
+
+              <p class="mini">📍 123 Main Street • ⏱ Open Tue–Sun • ☎ (555) 123-4567</p>
+            </div>
+
+            <div class="hero-card" aria-label="Restaurant preview card">
+              <div class="mock" style="position:relative; display:flex; align-items:center; justify-content:center;">
+                <div class="mock-badges">
+                  <div class="badge">🍳 Weekend brunch</div>
+                  <div class="badge">🥗 Vegetarian options</div>
+                  <div class="badge">🍸 Craft cocktails</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HIGHLIGHTS -->
+      <section id="specials">
+        <div class="container">
+          <div class="section-head">
+            <h2>What we’re known for</h2>
+            <p>
+              A simple restaurant site should answer the big questions fast: what’s good, what’s the vibe,
+              and how do I book?
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon">🔥</div>
+              <h3>Daily specials</h3>
+              <p>Rotating pasta, seasonal soups, and chef features that keep regulars coming back.</p>
+            </div>
+
+            <div class="card">
+              <div class="icon">🍷</div>
+              <h3>Bar + cocktails</h3>
+              <p>Classic drinks, local beer, and a short wine list that pairs well with the menu.</p>
+            </div>
+
+            <div class="card">
+              <div class="icon">🥬</div>
+              <h3>Diet-friendly</h3>
+              <p>Vegetarian and gluten-friendly options clearly labeled so ordering is easy.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU -->
+      <section id="menu-section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Menu highlights</h2>
+            <p>
+              This is a “preview menu.” Most restaurants keep it short here and link to a full PDF later.
+              Replace items with the client’s real menu.
+            </p>
+          </div>
+
+          <div class="menu-grid">
+            <div class="card menu-block">
+              <div class="menu-top">
+                <h3 style="margin:0;">Dinner Favorites</h3>
+                <p style="margin:6px 0 0; color: var(--muted); font-size:14px;">
+                  Popular picks that photograph well and sell well.
+                </p>
+                <div class="tagrow" style="margin-top: 12px;">
+                  <span class="tag">Chef-driven</span>
+                  <span class="tag">Seasonal</span>
+                  <span class="tag">Made fresh</span>
+                </div>
+              </div>
+
+              <div class="menu-body">
+                <div class="menu-item">
+                  <div>
+                    <b>North Star Burger</b>
+                    <small>Smash patty, cheddar, house sauce, pickles, fries</small>
+                  </div>
+                  <div class="price">$16</div>
+                </div>
+
+                <div class="menu-item">
+                  <div>
+                    <b>Roasted Chicken Bowl</b>
+                    <small>Herb chicken, rice, roasted veggies, lemon tahini</small>
+                  </div>
+                  <div class="price">$18</div>
+                </div>
+
+                <div class="menu-item">
+                  <div>
+                    <b>Spicy Vodka Rigatoni</b>
+                    <small>Calabrian chili, parmesan, basil (add chicken +$4)</small>
+                  </div>
+                  <div class="price">$19</div>
+                </div>
+
+                <div class="menu-item">
+                  <div>
+                    <b>Salmon + Greens</b>
+                    <small>Crispy salmon, citrus salad, cucumber, dill vinaigrette</small>
+                  </div>
+                  <div class="price">$22</div>
+                </div>
+
+                <div class="menu-item">
+                  <div>
+                    <b>Veggie Flatbread</b>
+                    <small>Roasted peppers, mushrooms, mozzarella, pesto drizzle</small>
+                  </div>
+                  <div class="price">$15</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 style="margin-top:0;">Hours + Location</h3>
+              <p style="margin:0; color: var(--muted); font-size: 14px;">
+                Keep this block super clear — it’s one of the most-clicked sections.
+              </p>
+
+              <div style="height: 12px;"></div>
+
+              <div class="hours">
+                <div class="hours-row"><div>Tue–Thu</div><span>4pm – 9pm</span></div>
+                <div class="hours-row"><div>Fri</div><span>4pm – 10pm</span></div>
+                <div class="hours-row"><div>Sat</div><span>10am – 10pm</span></div>
+                <div class="hours-row"><div>Sun</div><span>10am – 8pm</span></div>
+                <div class="hours-row"><div>Mon</div><span>Closed</span></div>
+              </div>
+
+              <div style="height: 14px;"></div>
+
+              <div class="card" style="background: rgba(0,0,0,0.18); border-color: rgba(255,255,255,0.10);">
+                <p style="margin:0; color: var(--muted); font-size: 14px;">
+                  <b style="color: var(--text);">Address:</b> 123 Main Street, Minneapolis, MN<br />
+                  <b style="color: var(--text);">Phone:</b> (555) 123-4567<br />
+                  <b style="color: var(--text);">Parking:</b> Street + ramp across the block
+                </p>
+              </div>
+
+              <p class="hint" style="margin-top: 12px;">
+                Pro tip: embed Google Maps later (or link to directions).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section id="reviews">
+        <div class="container">
+          <div class="section-head">
+            <h2>Reviews</h2>
+            <p>
+              Social proof sells. Use real Google reviews (with permission) once the client has them.
+            </p>
+          </div>
+
+          <div class="quotes">
+            <div class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“Best burger I’ve had in a long time. Service was fast and the place looks awesome.”</p>
+              <div class="who">
+                <span>Jordan M.</span>
+                <span style="color: var(--muted); font-weight: 800;">Local Guide</span>
+              </div>
+            </div>
+
+            <div class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“Perfect brunch spot. Great coffee, great vibe, and the portions are legit.”</p>
+              <div class="who">
+                <span>Taylor R.</span>
+                <span style="color: var(--muted); font-weight: 800;">Google Review</span>
+              </div>
+            </div>
+
+            <div class="card quote">
+              <div class="stars">★★★★★</div>
+              <p>“Cocktails were on point. We booked online and got seated right away.”</p>
+              <div class="who">
+                <span>Sam K.</span>
+                <span style="color: var(--muted); font-weight: 800;">OpenTable</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESERVATIONS -->
+      <section id="reserve">
+        <div class="container">
+          <div class="section-head">
+            <h2>Reservations</h2>
+            <p>
+              This form is HTML/CSS only (no backend). If you want it to actually submit, connect Formspree
+              or a booking tool.
+            </p>
+          </div>
+
+          <div class="reserve-grid">
+            <div class="card">
+              <h3 style="margin-top: 0;">Book a table</h3>
+              <form>
+                <div>
+                  <label for="rname">Name</label>
+                  <input id="rname" name="name" placeholder="Your name" autocomplete="name" />
+                </div>
+
+                <div>
+                  <label for="rphone">Phone</label>
+                  <input id="rphone" name="phone" placeholder="(555) 123-4567" autocomplete="tel" />
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <label for="rdate">Date</label>
+                    <input id="rdate" name="date" type="date" />
+                  </div>
+                  <div>
+                    <label for="rtime">Time</label>
+                    <input id="rtime" name="time" type="time" />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="rparty">Party size</label>
+                  <select id="rparty" name="party">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option selected>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7+</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="rnotes">Notes (optional)</label>
+                  <textarea id="rnotes" name="notes" placeholder="Allergies, high chair, special occasion..."></textarea>
+                </div>
+
+                <button class="btn primary" type="button">Request reservation</button>
+                <p class="hint">Demo button — doesn’t submit anywhere yet.</p>
+              </form>
+            </div>
+
+            <div class="card" id="contact">
+              <h3 style="margin-top: 0;">Contact</h3>
+              <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                <b style="color: var(--text);">North Star Kitchen</b><br />
+                Seasonal Restaurant &amp; Bar<br /><br />
+                Phone: (555) 123-4567<br />
+                Email: hello@northstarkitchen.com<br />
+                Address: 123 Main Street, Minneapolis, MN
+              </p>
+
+              <div style="height: 14px;"></div>
+
+              <div class="card" style="background: rgba(0,0,0,0.18); border-color: rgba(255,255,255,0.10);">
+                <h3 style="margin-top: 0;">Good to know</h3>
+                <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                  Walk-ins are welcome. For groups of 7+, call us. For takeout, order by phone.
+                </p>
+              </div>
+
+              <div style="height: 14px;"></div>
+
+              <p class="hint">
+                Next upgrade: add real reservations (OpenTable/Tock) + link to full menu PDF + photo gallery.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <div>© 2026 North Star Kitchen</div>
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <a href="#menu-section">Menu</a>
+            <a href="#specials">Specials</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#reserve">Reservations</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
