@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oak & Steam Coffee</title>
+    <meta
+      name="description"
+      content="Oak & Steam Coffee - handcrafted espresso, seasonal drinks, and fresh pastries."
+    />
+    <style>
+      :root {
+        --bg: #0f0e0d;
+        --surface: #171513;
+        --card: #1d1a18;
+        --text: #f4f1ed;
+        --muted: #c9c2bb;
+        --line: rgba(255, 255, 255, 0.10);
+        --accent: #d9a26b;
+        --accent2: #7dd3c7;
+        --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        --radius: 18px;
+        --max: 1120px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(1200px 800px at 20% 10%, rgba(217, 162, 107, 0.18), transparent 60%),
+                    radial-gradient(900px 700px at 90% 20%, rgba(125, 211, 199, 0.12), transparent 55%),
+                    var(--bg);
+        line-height: 1.5;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      .container { width: min(var(--max), 92vw); margin: 0 auto; }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: rgba(15, 14, 13, 0.65);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        gap: 16px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+      .logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(217, 162, 107, 0.95), rgba(125, 211, 199, 0.65));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      .brand span { color: var(--muted); font-weight: 600; }
+
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .navlinks a {
+        padding: 10px 10px;
+        border-radius: 12px;
+        transition: background 180ms ease, color 180ms ease;
+      }
+      .navlinks a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        border-radius: 14px;
+        background: rgba(217, 162, 107, 0.14);
+        border: 1px solid rgba(217, 162, 107, 0.35);
+        color: var(--text);
+        font-weight: 700;
+        font-size: 14px;
+        white-space: nowrap;
+        transition: transform 160ms ease, background 160ms ease;
+      }
+      .cta:hover {
+        transform: translateY(-1px);
+        background: rgba(217, 162, 107, 0.20);
+      }
+
+      /* Mobile menu (CSS-only) */
+      .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .menu-toggle span,
+      .menu-toggle span::before,
+      .menu-toggle span::after {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 10px;
+        position: relative;
+      }
+      .menu-toggle span::before { position: absolute; top: -6px; left: 0; }
+      .menu-toggle span::after { position: absolute; top: 6px; left: 0; }
+
+      #menu {
+        display: none;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 58px 0 34px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: var(--accent2);
+        box-shadow: 0 0 0 6px rgba(125, 211, 199, 0.10);
+      }
+      h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(34px, 4.2vw, 54px);
+        line-height: 1.05;
+        letter-spacing: -0.8px;
+      }
+      .lead {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 52ch;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 14px;
+        border: 1px solid transparent;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, rgba(217, 162, 107, 0.95), rgba(217, 162, 107, 0.65));
+        color: #1a120b;
+        box-shadow: var(--shadow);
+      }
+      .btn.primary:hover { transform: translateY(-1px); }
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--line);
+        color: var(--text);
+      }
+      .btn.ghost:hover { background: rgba(255, 255, 255, 0.08); }
+
+      .hero-card {
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-card .img {
+        height: 340px;
+        background:
+          radial-gradient(400px 240px at 70% 20%, rgba(217, 162, 107, 0.35), transparent 60%),
+          radial-gradient(380px 260px at 20% 60%, rgba(125, 211, 199, 0.22), transparent 60%),
+          linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      }
+      .hero-card .overlay {
+        padding: 16px;
+        display: grid;
+        gap: 10px;
+      }
+      .statrow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .stat {
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        padding: 12px;
+      }
+      .stat b { display: block; font-size: 14px; }
+      .stat small { color: var(--muted); }
+
+      /* Sections */
+      section { padding: 44px 0; }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: -0.4px;
+      }
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 60ch;
+        font-size: 14px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .card {
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--line);
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      }
+      .card h3 { margin: 8px 0 6px; font-size: 16px; }
+      .card p { margin: 0; color: var(--muted); font-size: 14px; }
+      .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(217, 162, 107, 0.14);
+        border: 1px solid rgba(217, 162, 107, 0.28);
+        color: var(--text);
+        font-weight: 900;
+      }
+
+      /* Menu list */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .menu-list {
+        display: grid;
+        gap: 10px;
+      }
+      .menu-item {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+      }
+      .menu-item b { font-size: 14px; }
+      .menu-item span { color: var(--muted); font-size: 13px; display: block; margin-top: 2px; }
+      .price { color: var(--text); font-weight: 800; }
+
+      .aside {
+        position: sticky;
+        top: 86px;
+      }
+      .aside .card { padding: 16px; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(125, 211, 199, 0.10);
+        border: 1px solid rgba(125, 211, 199, 0.25);
+        color: var(--text);
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+      form {
+        display: grid;
+        gap: 10px;
+      }
+      label {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+      input, textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.22);
+        color: var(--text);
+        outline: none;
+      }
+      input:focus, textarea:focus {
+        border-color: rgba(217, 162, 107, 0.55);
+        box-shadow: 0 0 0 4px rgba(217, 162, 107, 0.12);
+      }
+      textarea { min-height: 120px; resize: vertical; }
+      .hint { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+
+      /* Footer */
+      footer {
+        padding: 34px 0 44px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Responsive */
+      @media (max-width: 920px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .hero-card .img { height: 280px; }
+        .grid-3 { grid-template-columns: 1fr; }
+        .menu-grid { grid-template-columns: 1fr; }
+        .aside { position: static; }
+        .contact-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 720px) {
+        .navlinks { display: none; }
+        .menu-toggle { display: inline-flex; }
+        #menu:checked ~ header .navlinks {
+          display: grid;
+          grid-auto-rows: min-content;
+          gap: 6px;
+          width: 100%;
+          padding: 10px 0 2px;
+        }
+        #menu:checked ~ header .nav {
+          align-items: start;
+          flex-wrap: wrap;
+        }
+        #menu:checked ~ header .cta {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- CSS-only mobile menu checkbox -->
+    <input type="checkbox" id="menu" />
+
+    <header>
+      <div class="container">
+        <nav class="nav" aria-label="Primary">
+          <a class="brand" href="#top">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+              Oak &amp; Steam<br />
+              <span>Coffee House</span>
+            </div>
+          </a>
+
+          <label class="menu-toggle" for="menu" aria-label="Toggle menu">
+            <span aria-hidden="true"></span>
+          </label>
+
+          <div class="navlinks">
+            <a href="#about">About</a>
+            <a href="#menu-section">Menu</a>
+            <a href="#hours">Hours</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <a class="cta" href="#contact">Order ahead</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="pill"><span class="dot"></span> Fresh espresso, local pastries, calm vibes</div>
+              <h1>Small-batch coffee, made to slow your day down.</h1>
+              <p class="lead">
+                Oak &amp; Steam is your neighborhood spot for espresso classics, seasonal specials,
+                and warm pastries baked every morning. Swing by, stay a while, and leave happier.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn primary" href="#menu-section">View the menu</a>
+                <a class="btn ghost" href="#contact">Find us</a>
+              </div>
+
+              <p class="hint">Free Wi-Fi • Plenty of outlets • Study-friendly seating</p>
+            </div>
+
+            <div class="hero-card" role="img" aria-label="Coffee shop preview card">
+              <div class="img"></div>
+              <div class="overlay">
+                <div class="statrow">
+                  <div class="stat">
+                    <b>Today’s special</b>
+                    <small>Brown sugar oat latte</small>
+                  </div>
+                  <div class="stat">
+                    <b>Roast</b>
+                    <small>Medium • chocolatey</small>
+                  </div>
+                </div>
+                <div class="stat">
+                  <b>Location</b>
+                  <small>123 Maple St • Downtown</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT / FEATURES -->
+      <section id="about">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>What we’re about</h2>
+              <p>
+                Simple ingredients, careful brewing, and a space that feels easy to walk into.
+                Everything is made to taste good and keep you coming back.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon" aria-hidden="true">☕</div>
+              <h3>Dialed-in espresso</h3>
+              <p>Balanced shots, silky milk, and consistent flavor from open to close.</p>
+            </div>
+
+            <div class="card">
+              <div class="icon" aria-hidden="true">🥐</div>
+              <h3>Baked every morning</h3>
+              <p>Pastries and sandwiches made fresh with seasonal rotating options.</p>
+            </div>
+
+            <div class="card">
+              <div class="icon" aria-hidden="true">🌿</div>
+              <h3>Comfortable space</h3>
+              <p>Plenty of seating, mellow music, and a vibe that works for everyone.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU -->
+      <section id="menu-section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Menu highlights</h2>
+              <p>Pricing is sample text. Swap items to match the shop’s real menu.</p>
+            </div>
+          </div>
+
+          <div class="menu-grid">
+            <div class="menu-list" aria-label="Menu items">
+              <div class="menu-item">
+                <div>
+                  <b>House Latte</b>
+                  <span>Espresso + steamed milk</span>
+                </div>
+                <div class="price">$4.50</div>
+              </div>
+
+              <div class="menu-item">
+                <div>
+                  <b>Vanilla Cold Brew</b>
+                  <span>Slow-steeped, lightly sweet</span>
+                </div>
+                <div class="price">$4.95</div>
+              </div>
+
+              <div class="menu-item">
+                <div>
+                  <b>Brown Sugar Oat Latte</b>
+                  <span>Oat milk + warm spice</span>
+                </div>
+                <div class="price">$5.25</div>
+              </div>
+
+              <div class="menu-item">
+                <div>
+                  <b>Mocha</b>
+                  <span>Dark cocoa + espresso</span>
+                </div>
+                <div class="price">$5.10</div>
+              </div>
+
+              <div class="menu-item">
+                <div>
+                  <b>Chai</b>
+                  <span>Spiced tea + milk</span>
+                </div>
+                <div class="price">$4.75</div>
+              </div>
+
+              <div class="menu-item">
+                <div>
+                  <b>Butter Croissant</b>
+                  <span>Flaky, baked daily</span>
+                </div>
+                <div class="price">$3.25</div>
+              </div>
+            </div>
+
+            <aside class="aside">
+              <div class="card">
+                <div class="badge">Seasonal</div>
+                <h3 style="margin: 10px 0 6px;">Winter Flight</h3>
+                <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                  Try three 6oz pours: cinnamon latte, vanilla cold brew, and classic drip.
+                </p>
+                <div style="height: 12px;"></div>
+                <div class="menu-item" style="margin: 0;">
+                  <div>
+                    <b>Flight (3 drinks)</b>
+                    <span>Perfect for sharing</span>
+                  </div>
+                  <div class="price">$9.50</div>
+                </div>
+              </div>
+
+              <div style="height: 14px;"></div>
+
+              <div class="card" id="hours">
+                <h3 style="margin: 0 0 8px;">Hours</h3>
+                <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                  Mon–Fri: 7am–6pm<br />
+                  Sat: 8am–5pm<br />
+                  Sun: 8am–3pm
+                </p>
+                <p class="hint" style="margin-top: 10px;">Kitchen closes 30 minutes early.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Contact</h2>
+              <p>Drop a message, ask about catering, or request an order ahead link.</p>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <div class="card">
+              <h3 style="margin-top: 0;">Send us a note</h3>
+              <form>
+                <div>
+                  <label for="name">Name</label>
+                  <input id="name" name="name" placeholder="Your name" autocomplete="name" />
+                </div>
+
+                <div>
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="minnesota.webbsites@gmail.com"
+                    autocomplete="email"
+                  />
+                </div>
+
+                <div>
+                  <label for="msg">Message</label>
+                  <textarea id="msg" name="message" placeholder="How can we help?"></textarea>
+                </div>
+
+                <button class="btn primary" type="button">Send message</button>
+                <p class="hint">This demo button doesn’t submit anywhere (HTML/CSS only).</p>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3 style="margin-top: 0;">Visit us</h3>
+              <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                <b style="color: var(--text);">Oak &amp; Steam Coffee</b><br />
+                123 Maple St, Your City<br />
+                (555) 123-4567<br />
+                hello@oakandsteam.com
+              </p>
+
+              <div style="height: 14px;"></div>
+
+              <div class="card" style="background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.08);">
+                <h3 style="margin-top: 0;">Quick tips (to customize)</h3>
+                <p style="margin: 0; color: var(--muted); font-size: 14px;">
+                  Replace the address, hours, menu items, and brand name. If you want a real contact
+                  form later, you can hook this up to Formspree or a simple backend.
+                </p>
+              </div>
+
+              <div style="height: 14px;"></div>
+
+              <p class="hint">Want a photo header? Swap the hero card gradient with a background image.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <div>© <span id="year">2026</span> Oak &amp; Steam Coffee</div>
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <a href="#about">About</a>
+            <a href="#menu-section">Menu</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
