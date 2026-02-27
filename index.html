@@ -209,13 +209,19 @@
         overflow: hidden;
       }
       .mock {
-        height: 310px;
-        position: relative;
-        background:
-          radial-gradient(450px 240px at 70% 18%, rgba(119, 196, 255, 0.35), transparent 60%),
-          radial-gradient(420px 280px at 20% 65%, rgba(183, 255, 207, 0.22), transparent 60%),
-          linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
-      }
+  height: 310px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("images/minnwebblogo.png");
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
       .mock::after {
         content: "";
         position: absolute;
@@ -519,16 +525,7 @@
             <div class="hero-card" aria-label="Website preview card">
               <div class="mock" style="position:relative; display:flex; align-items:center; justify-content:center;">
             
-                <!-- YOUR LOGO -->
-                <img src="images/minnwebblogo.png"
-                     alt="MinnWebb Logo"
-                     style="
-                       max-width:70%;
-                       max-height:70%;
-                       object-fit:contain;
-                       position:relative;
-                       z-index:1;
-                     ">
+
             
                 <!-- KEEP THESE BADGES -->
                 <div class="mock-badges">
