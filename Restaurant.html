@@ -1,466 +1,501 @@
-<!-- Restaurant.html -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>North Star Kitchen | Modern Restaurant Website</title>
+    <title>North Star Kitchen | Restaurant</title>
     <meta
       name="description"
-      content="A modern, mobile-friendly restaurant website with menu highlights, reservations, hours, and contact info."
+      content="North Star Kitchen. Brunch, dinner, drinks, and dessert. Reservations and hours."
     />
 
     <style>
-      :root {
-        --bg: #0b0d10;
-        --surface: #121722;
-        --card: rgba(255, 255, 255, 0.06);
-        --border: rgba(255, 255, 255, 0.12);
-        --text: #f4f7fb;
-        --muted: rgba(244, 247, 251, 0.72);
-        --accent: #ffb86b;   /* warm orange */
-        --accent2: #77c4ff;  /* cool blue */
-        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+      :root{
+        --bg: #fbfaf7;
+        --paper: #ffffff;
+        --ink: #141414;
+        --muted: rgba(20,20,20,0.64);
+        --line: rgba(20,20,20,0.12);
+
+        --accent: #d94f2b;
+        --accent2:#1f7a6b;
+
+        --shadow: 0 18px 50px rgba(0,0,0,0.08);
         --radius: 18px;
         --max: 1120px;
+
+        --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       }
 
-      * { box-sizing: border-box; }
-      html, body { height: 100%; }
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
-          "Apple Color Emoji", "Segoe UI Emoji";
-        color: var(--text);
+      *{ box-sizing:border-box; }
+      html, body{ height:100%; }
+      body{
+        margin:0;
+        color: var(--ink);
         background:
-          radial-gradient(900px 700px at 18% 10%, rgba(255, 184, 107, 0.16), transparent 60%),
-          radial-gradient(900px 700px at 90% 20%, rgba(119, 196, 255, 0.14), transparent 55%),
+          radial-gradient(900px 600px at 12% 12%, rgba(217,79,43,0.08), transparent 60%),
+          radial-gradient(760px 520px at 92% 18%, rgba(31,122,107,0.08), transparent 60%),
           var(--bg);
-        line-height: 1.55;
+        font-family: var(--sans);
+        line-height:1.55;
       }
 
-      a { color: inherit; text-decoration: none; }
-      img { max-width: 100%; display: block; }
-      .container { width: min(var(--max), 92vw); margin: 0 auto; }
+      a{ color:inherit; text-decoration:none; }
+      img{ max-width:100%; display:block; }
+      .container{ width:min(var(--max), 92vw); margin:0 auto; }
 
-      /* Header */
-      header {
+      /* subtle grain */
+      .grain{
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: multiply;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+      }
+
+      /* header */
+      header{
         position: sticky;
-        top: 0;
-        z-index: 50;
+        top:0;
+        z-index:50;
+        background: rgba(251,250,247,0.82);
         backdrop-filter: blur(10px);
-        background: rgba(11, 13, 16, 0.72);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--line);
       }
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
+      .nav{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
         padding: 14px 0;
         flex-wrap: wrap;
       }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 900;
-        letter-spacing: 0.2px;
+
+      /* more “real site” wordmark */
+      .brand{
+        display:flex;
+        align-items:baseline;
+        gap:10px;
       }
-      .logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, rgba(255,184,107,0.95), rgba(119,196,255,0.65));
-        box-shadow: 0 12px 35px rgba(0,0,0,0.45);
-        position: relative;
-        overflow: hidden;
+      .brand b{
+        font-family: var(--serif);
+        font-size: 20px;
+        letter-spacing: -0.3px;
       }
-      .logo::after{
-        content:"✦";
-        position:absolute;
-        inset:0;
-        display:grid;
-        place-items:center;
-        font-weight:900;
-        color: rgba(9, 16, 24, 0.85);
-        font-size: 18px;
-        transform: translateY(-1px);
-      }
-      .brand small {
-        display: block;
+      .brand small{
         color: var(--muted);
-        font-weight: 700;
-        letter-spacing: 0.3px;
+        font-weight: 800;
+        letter-spacing: 0.15px;
       }
 
-      /* CSS-only mobile menu */
-      #menu { display: none; }
-      .menu-toggle {
-        display: none;
-        width: 44px;
-        height: 44px;
+      /* mobile menu */
+      #menu{ display:none; }
+      .menu-toggle{
+        display:none;
+        width:44px;
+        height:44px;
         border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.04);
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.75);
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
       }
       .menu-toggle span,
       .menu-toggle span::before,
-      .menu-toggle span::after {
-        content: "";
-        display: block;
+      .menu-toggle span::after{
+        content:"";
+        display:block;
         width: 18px;
         height: 2px;
-        background: var(--text);
+        background: var(--ink);
         border-radius: 10px;
         position: relative;
       }
-      .menu-toggle span::before { position: absolute; top: -6px; left: 0; }
-      .menu-toggle span::after { position: absolute; top: 6px; left: 0; }
+      .menu-toggle span::before{ position:absolute; top:-6px; left:0; }
+      .menu-toggle span::after{ position:absolute; top:6px; left:0; }
 
-      .navlinks {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        color: var(--muted);
-        font-weight: 800;
-        font-size: 14px;
-      }
-      .navlinks a {
-        padding: 10px 10px;
-        border-radius: 14px;
-        transition: background 180ms ease, color 180ms ease;
-      }
-      .navlinks a:hover {
-        background: rgba(255,255,255,0.06);
-        color: var(--text);
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 11px 14px;
-        border-radius: 14px;
+      .navlinks{
+        display:flex;
+        align-items:center;
+        gap: 10px;
         font-weight: 900;
-        font-size: 14px;
+        font-size: 13px;
+        color: rgba(20,20,20,0.78);
+      }
+      .navlinks a{
+        padding: 10px 12px;
+        border-radius: 999px;
         border: 1px solid transparent;
+        transition: background 170ms ease, border-color 170ms ease, transform 170ms ease;
+      }
+      .navlinks a:hover{
+        background: rgba(217,79,43,0.07);
+        border-color: rgba(217,79,43,0.14);
+        transform: translateY(-1px);
+      }
+
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        padding: 11px 14px;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 13px;
+        border: 1px solid transparent;
+        cursor:pointer;
         transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
         white-space: nowrap;
-        cursor: pointer;
       }
-      .btn.primary {
-        background: linear-gradient(135deg, rgba(255,184,107,0.95), rgba(255,184,107,0.65));
-        color: #0b0d10;
+      .btn.primary{
+        background: var(--ink);
+        color: var(--paper);
         box-shadow: var(--shadow);
       }
-      .btn.primary:hover { transform: translateY(-1px); }
-      .btn.ghost {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: var(--border);
-        color: var(--text);
+      .btn.primary:hover{ transform: translateY(-1px); }
+      .btn.ghost{
+        background: rgba(255,255,255,0.75);
+        border-color: var(--line);
+        color: var(--ink);
       }
-      .btn.ghost:hover { background: rgba(255, 255, 255, 0.08); }
+      .btn.ghost:hover{ background: rgba(255,255,255,0.95); }
 
-      /* Hero */
-      .hero { padding: 56px 0 28px; }
-      .hero-grid {
-        display: grid;
+      /* hero */
+      .hero{ padding: 52px 0 26px; }
+      .hero-grid{
+        display:grid;
         grid-template-columns: 1.05fr 0.95fr;
-        gap: 22px;
-        align-items: center;
+        gap: 18px;
+        align-items: stretch;
       }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
+
+      .kicker{
+        display:inline-flex;
+        gap:10px;
+        align-items:center;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border);
-        color: var(--muted);
-        font-weight: 800;
-        font-size: 13px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.78);
+        color: rgba(20,20,20,0.72);
+        font-weight: 900;
+        font-size: 12px;
       }
-      .dot {
+      .kdot{
         width: 9px;
         height: 9px;
-        border-radius: 99px;
-        background: var(--accent);
-        box-shadow: 0 0 0 6px rgba(255, 184, 107, 0.10);
-      }
-      h1 {
-        margin: 14px 0 10px;
-        font-size: clamp(34px, 4.2vw, 54px);
-        line-height: 1.06;
-        letter-spacing: -0.8px;
-      }
-      .lead {
-        margin: 0 0 18px;
-        color: var(--muted);
-        font-size: 16px;
-        max-width: 60ch;
-      }
-      .hero-actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 18px;
-      }
-      .mini {
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 13px;
+        border-radius: 999px;
+        background: var(--accent2);
+        box-shadow: 0 0 0 6px rgba(31,122,107,0.10);
       }
 
-      .hero-card {
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        overflow: hidden;
+      h1{
+        margin: 14px 0 12px;
+        font-family: var(--serif);
+        font-size: clamp(34px, 4.4vw, 58px);
+        letter-spacing: -0.9px;
+        line-height: 1.02;
       }
-      .mock {
-        height: 320px;
-        position: relative;
-        border-radius: 16px;
-        overflow: hidden;
-        background:
-          linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-          radial-gradient(900px 420px at 80% 30%, rgba(255,184,107,0.28), transparent 55%),
-          radial-gradient(700px 360px at 20% 70%, rgba(119,196,255,0.18), transparent 60%),
-          linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+      .lead{
+        margin: 0 0 16px;
+        color: var(--muted);
+        max-width: 62ch;
+        font-size: 16px;
       }
-      .mock::after {
-        content: "";
-        position: absolute;
-        inset: 18px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(0,0,0,0.22);
-      }
-      .mock-badges {
-        position: absolute;
-        inset: 0;
-        padding: 18px;
-        display: grid;
+      .hero-actions{
+        display:flex;
         gap: 10px;
-        align-content: end;
+        flex-wrap:wrap;
+        margin-top: 18px;
       }
-      .badge {
-        display: inline-flex;
-        align-items: center;
+
+      .mini{
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .mini a{
+        text-decoration: underline;
+        text-decoration-color: rgba(20,20,20,0.25);
+        text-underline-offset: 3px;
+      }
+      .mini a:hover{ text-decoration-color: rgba(217,79,43,0.40); }
+
+      /* photo-style mosaic (swap URLs later) */
+      .mosaic{
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.72);
+        box-shadow: var(--shadow);
+        overflow:hidden;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1.1fr 0.9fr;
+        gap: 10px;
+        padding: 12px;
+      }
+      .tile{
+        border-radius: 16px;
+        border: 1px solid rgba(20,20,20,0.10);
+        overflow:hidden;
+        position: relative;
+        min-height: 140px;
+        background-size: cover;
+        background-position: center;
+      }
+      /* Replace these with real images later */
+      .tile.one{
+        background-image:
+          linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.02)),
+          url("https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1400&q=70");
+      }
+      .tile.two{
+        background-image:
+          linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.02)),
+          url("https://images.unsplash.com/photo-1541544181074-e8b3d2f8f9f4?auto=format&fit=crop&w=1400&q=70");
+      }
+      .tile.wide{
+        grid-column: 1 / -1;
+        min-height: 150px;
+        background-image:
+          linear-gradient(180deg, rgba(0,0,0,0.20), rgba(0,0,0,0.03)),
+          url("https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1600&q=70");
+      }
+      .tile-label{
+        position:absolute;
+        left: 12px;
+        bottom: 12px;
+        display:inline-flex;
+        align-items:center;
         gap: 8px;
         padding: 8px 10px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: var(--text);
+        background: rgba(255,255,255,0.86);
+        border: 1px solid rgba(20,20,20,0.12);
+        font-weight: 900;
+        font-size: 12px;
+      }
+
+      /* sections */
+      section{ padding: 42px 0; }
+      .section-head{
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+        flex-wrap:wrap;
+      }
+      .section-head h2{
+        margin:0;
+        font-family: var(--serif);
+        font-size: 26px;
+        letter-spacing: -0.35px;
+      }
+      .section-head p{
+        margin:0;
+        color: var(--muted);
+        max-width: 78ch;
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      .card{
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.80);
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+      }
+      .card.pad{ padding: 18px; }
+
+      /* varieties */
+      .variety-shell{ overflow:hidden; }
+      .variety-top{
+        padding: 16px 16px 10px;
+        border-bottom: 1px solid var(--line);
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap: 12px;
+        flex-wrap:wrap;
+      }
+      .variety-top b{
+        font-family: var(--serif);
+        font-size: 18px;
+        letter-spacing: -0.2px;
+      }
+      .variety-top span{
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      .tabs{
+        display:flex;
+        gap: 8px;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+      .tabs input{ display:none; }
+      .tabs label{
+        display:inline-flex;
+        align-items:center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.80);
         font-weight: 900;
         font-size: 13px;
-        width: fit-content;
+        cursor:pointer;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+      .tabs label:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.98);
+      }
+      #tab-brunch:checked + label,
+      #tab-dinner:checked + label,
+      #tab-drinks:checked + label,
+      #tab-dessert:checked + label{
+        background: rgba(20,20,20,0.92);
+        color: white;
+        border-color: rgba(20,20,20,0.92);
       }
 
-      /* Sections */
-      section { padding: 44px 0; }
-      .section-head {
-        display: grid;
-        gap: 8px;
-        margin-bottom: 18px;
-      }
-      .section-head h2 {
-        margin: 0;
-        font-size: 24px;
-        letter-spacing: -0.4px;
-      }
-      .section-head p {
-        margin: 0;
-        color: var(--muted);
-        max-width: 75ch;
-        font-size: 14px;
-      }
+      .variety-body{ padding: 16px; }
+      .panels > .panel{ display:none; }
+      #tab-brunch:checked ~ .panels #panel-brunch{ display:block; }
+      #tab-dinner:checked ~ .panels #panel-dinner{ display:block; }
+      #tab-drinks:checked ~ .panels #panel-drinks{ display:block; }
+      #tab-dessert:checked ~ .panels #panel-dessert{ display:block; }
 
-      .grid-3 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-      .card {
-        border-radius: var(--radius);
-        background: var(--card);
-        border: 1px solid var(--border);
-        padding: 18px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      }
-      .card h3 { margin: 8px 0 6px; font-size: 16px; }
-      .card p { margin: 0; color: var(--muted); font-size: 14px; }
-      .icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 14px;
-        display: grid;
-        place-items: center;
-        background: rgba(255, 184, 107, 0.14);
-        border: 1px solid rgba(255, 184, 107, 0.28);
-        font-weight: 900;
-      }
-
-      /* Menu */
-      .menu-grid {
-        display: grid;
+      .menu-grid{
+        display:grid;
         grid-template-columns: 1.2fr 0.8fr;
-        gap: 16px;
-        align-items: start;
+        gap: 14px;
+        align-items:start;
       }
-      .menu-block {
-        padding: 0;
-        overflow: hidden;
-      }
-      .menu-top {
-        padding: 18px;
-        border-bottom: 1px solid var(--border);
-        background:
-          radial-gradient(500px 240px at 70% 20%, rgba(255, 184, 107, 0.22), transparent 60%),
-          radial-gradient(420px 240px at 20% 80%, rgba(119, 196, 255, 0.14), transparent 60%),
-          rgba(0,0,0,0.18);
-      }
-      .menu-body { padding: 16px 18px 18px; }
-      .menu-item {
-        display: grid;
+      .menu-list{ display:grid; gap: 10px; }
+
+      /* more menu-like, less “component” */
+      .item{
+        display:grid;
         grid-template-columns: 1fr auto;
         gap: 10px;
-        padding: 12px 0;
-        border-bottom: 1px dashed rgba(255,255,255,0.14);
+        padding: 12px 12px 11px;
+        border-radius: 16px;
+        border: 1px solid rgba(20,20,20,0.10);
+        background: rgba(255,255,255,0.78);
       }
-      .menu-item:last-child { border-bottom: none; padding-bottom: 0; }
-      .menu-item b { letter-spacing: -0.2px; }
-      .menu-item small { display: block; color: var(--muted); font-weight: 700; margin-top: 4px; }
-      .price { font-weight: 900; color: rgba(255, 255, 255, 0.92); }
-
-      /* Specials / Cards */
-      .tagrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-      .tag {
-        font-size: 12px;
+      .item b{ letter-spacing: -0.2px; }
+      .item small{
+        display:block;
+        margin-top: 4px;
         color: var(--muted);
-        border: 1px solid rgba(255,255,255,0.14);
-        background: rgba(0,0,0,0.18);
-        padding: 6px 10px;
-        border-radius: 999px;
+        font-weight: 750;
+      }
+      .price{
+        font-weight: 950;
+        color: rgba(20,20,20,0.92);
+        white-space: nowrap;
+      }
+
+      .side{ display:grid; gap: 12px; }
+      .note{
+        padding: 14px;
+        border-radius: 16px;
+        border: 1px dashed rgba(20,20,20,0.22);
+        background: rgba(217,79,43,0.06);
+        color: rgba(20,20,20,0.84);
         font-weight: 800;
-      }
-
-      /* Reviews */
-      .quotes {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-      .quote {
-        display: grid;
-        gap: 10px;
-      }
-      .quote p { margin: 0; color: var(--muted); font-size: 14px; }
-      .quote .who {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        color: rgba(244,247,251,0.9);
-        font-weight: 900;
-        font-size: 14px;
-      }
-      .stars { color: rgba(255,184,107,0.92); font-weight: 900; letter-spacing: 0.6px; }
-
-      /* Reservations */
-      .reserve-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        align-items: start;
-      }
-      form { display: grid; gap: 10px; }
-      label {
         font-size: 13px;
-        color: var(--muted);
+      }
+
+      .hours{ display:grid; gap: 10px; }
+      .hours-row{
+        display:flex;
+        justify-content:space-between;
+        gap: 12px;
         font-weight: 900;
       }
-      input, textarea, select {
-        width: 100%;
+      .hours-row span{ color: var(--muted); font-weight: 900; }
+
+      /* reservations */
+      .reserve-grid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items:start;
+      }
+      form{ display:grid; gap: 10px; }
+      label{
+        font-size: 13px;
+        color: rgba(20,20,20,0.75);
+        font-weight: 900;
+      }
+      input, textarea, select{
+        width:100%;
         padding: 12px 12px;
         border-radius: 14px;
-        border: 1px solid var(--border);
-        background: rgba(0, 0, 0, 0.22);
-        color: var(--text);
-        outline: none;
+        border: 1px solid rgba(20,20,20,0.18);
+        background: rgba(255,255,255,0.94);
+        color: var(--ink);
+        outline:none;
       }
-      input:focus, textarea:focus, select:focus {
-        border-color: rgba(255, 184, 107, 0.55);
-        box-shadow: 0 0 0 4px rgba(255, 184, 107, 0.12);
+      input:focus, textarea:focus, select:focus{
+        border-color: rgba(217,79,43,0.55);
+        box-shadow: 0 0 0 4px rgba(217,79,43,0.14);
       }
-      textarea { min-height: 120px; resize: vertical; }
-      .hint { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+      textarea{ min-height: 120px; resize: vertical; }
+      .hint{ margin: 8px 0 0; color: var(--muted); font-size: 13px; font-weight: 700; }
 
-      /* Hours card */
-      .hours {
-        display: grid;
-        gap: 10px;
-      }
-      .hours-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 14px;
-        font-weight: 800;
-        color: rgba(244,247,251,0.92);
-      }
-      .hours-row span { color: var(--muted); font-weight: 800; }
-
-      /* Footer */
-      footer {
+      footer{
         padding: 34px 0 44px;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--line);
         color: var(--muted);
+        font-weight: 800;
       }
-      .footer-row {
-        display: flex;
-        justify-content: space-between;
+      .footer-row{
+        display:flex;
+        justify-content:space-between;
         gap: 12px;
-        flex-wrap: wrap;
-        align-items: center;
+        flex-wrap:wrap;
+        align-items:center;
       }
 
-      /* Responsive */
-      @media (max-width: 980px) {
-        .hero-grid { grid-template-columns: 1fr; }
-        .grid-3 { grid-template-columns: 1fr; }
-        .menu-grid { grid-template-columns: 1fr; }
-        .quotes { grid-template-columns: 1fr; }
-        .reserve-grid { grid-template-columns: 1fr; }
+      @media (max-width: 980px){
+        .hero-grid{ grid-template-columns: 1fr; }
+        .menu-grid{ grid-template-columns: 1fr; }
+        .reserve-grid{ grid-template-columns: 1fr; }
       }
-
-      @media (max-width: 720px) {
-        .menu-toggle { display: inline-flex; }
-        .navlinks { display: none; width: 100%; padding: 8px 0 2px; }
-        #menu:checked ~ header .navlinks { display: grid; gap: 6px; }
-        #menu:checked ~ header .btn.primary { width: 100%; justify-content: center; }
+      @media (max-width: 720px){
+        .menu-toggle{ display:inline-flex; }
+        .navlinks{ display:none; width:100%; padding: 8px 0 2px; }
+        #menu:checked ~ header .navlinks{ display:grid; gap: 6px; }
+        #menu:checked ~ header .btn.primary{ width:100%; justify-content:center; }
+        .mosaic{ grid-template-columns: 1fr; grid-template-rows: auto; }
+        .tile.wide{ grid-column: auto; }
       }
     </style>
   </head>
 
   <body>
+    <div class="grain" aria-hidden="true"></div>
+
     <input type="checkbox" id="menu" />
 
     <header>
       <div class="container">
         <nav class="nav" aria-label="Primary">
           <a class="brand" href="#top">
-            <div class="logo" aria-hidden="true"></div>
-            <div>
-              North Star Kitchen
-              <small>Seasonal comfort food • Downtown</small>
-            </div>
+            <b>North Star Kitchen</b>
+            <small>Downtown • Kitchen &amp; Bar</small>
           </a>
 
           <label class="menu-toggle" for="menu" aria-label="Toggle menu">
@@ -468,242 +503,309 @@
           </label>
 
           <div class="navlinks">
-            <a href="#menu-section">Menu</a>
-            <a href="#specials">Specials</a>
-            <a href="#reviews">Reviews</a>
+            <a href="#varieties">Menu</a>
             <a href="#reserve">Reservations</a>
-            <a href="#contact">Contact</a>
+            <a href="#contact">Hours &amp; contact</a>
           </div>
 
-          <a class="btn primary" href="#reserve">Book a table</a>
+          <a class="btn primary" href="#reserve">Reserve</a>
         </nav>
       </div>
     </header>
 
     <main id="top">
-      <!-- HERO -->
       <section class="hero">
         <div class="container">
           <div class="hero-grid">
             <div>
-              <div class="pill"><span class="dot"></span> Walk-ins welcome • Online reservations • Local ingredients</div>
-              <h1>A warm, modern spot for dinner, drinks, and weekend brunch.</h1>
+              <div class="kicker"><span class="kdot"></span> Walk-ins welcome most nights • Kitchen closes at 9</div>
+
+              <h1>Brunch on weekends, pasta at night, and a bar menu that isn’t an afterthought.</h1>
+
               <p class="lead">
-                North Star Kitchen serves seasonal comfort food with a chef-driven twist. Fast service, cozy vibes,
-                and a menu that changes just enough to keep things interesting.
+                The menu changes around what’s good right now, but we keep a few staples that people come in for.
+                If you’re running late, call us and we’ll hold the table for 10 minutes.
               </p>
 
               <div class="hero-actions">
-                <a class="btn primary" href="#reserve">Reserve a table</a>
-                <a class="btn ghost" href="#menu-section">View menu</a>
+                <a class="btn primary" href="#varieties">See the menu</a>
+                <a class="btn ghost" href="#reserve">Request a table</a>
               </div>
 
-              <p class="mini">📍 123 Main Street • ⏱ Open Tue–Sun • ☎ (555) 123-4567</p>
-            </div>
-
-            <div class="hero-card" aria-label="Restaurant preview card">
-              <div class="mock" style="position:relative; display:flex; align-items:center; justify-content:center;">
-                <div class="mock-badges">
-                  <div class="badge">🍳 Weekend brunch</div>
-                  <div class="badge">🥗 Vegetarian options</div>
-                  <div class="badge">🍸 Craft cocktails</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- HIGHLIGHTS -->
-      <section id="specials">
-        <div class="container">
-          <div class="section-head">
-            <h2>What we’re known for</h2>
-            <p>
-              A simple restaurant site should answer the big questions fast: what’s good, what’s the vibe,
-              and how do I book?
-            </p>
-          </div>
-
-          <div class="grid-3">
-            <div class="card">
-              <div class="icon">🔥</div>
-              <h3>Daily specials</h3>
-              <p>Rotating pasta, seasonal soups, and chef features that keep regulars coming back.</p>
-            </div>
-
-            <div class="card">
-              <div class="icon">🍷</div>
-              <h3>Bar + cocktails</h3>
-              <p>Classic drinks, local beer, and a short wine list that pairs well with the menu.</p>
-            </div>
-
-            <div class="card">
-              <div class="icon">🥬</div>
-              <h3>Diet-friendly</h3>
-              <p>Vegetarian and gluten-friendly options clearly labeled so ordering is easy.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MENU -->
-      <section id="menu-section">
-        <div class="container">
-          <div class="section-head">
-            <h2>Menu highlights</h2>
-            <p>
-              This is a “preview menu.” Most restaurants keep it short here and link to a full PDF later.
-              Replace items with the client’s real menu.
-            </p>
-          </div>
-
-          <div class="menu-grid">
-            <div class="card menu-block">
-              <div class="menu-top">
-                <h3 style="margin:0;">Dinner Favorites</h3>
-                <p style="margin:6px 0 0; color: var(--muted); font-size:14px;">
-                  Popular picks that photograph well and sell well.
-                </p>
-                <div class="tagrow" style="margin-top: 12px;">
-                  <span class="tag">Chef-driven</span>
-                  <span class="tag">Seasonal</span>
-                  <span class="tag">Made fresh</span>
-                </div>
-              </div>
-
-              <div class="menu-body">
-                <div class="menu-item">
-                  <div>
-                    <b>North Star Burger</b>
-                    <small>Smash patty, cheddar, house sauce, pickles, fries</small>
-                  </div>
-                  <div class="price">$16</div>
-                </div>
-
-                <div class="menu-item">
-                  <div>
-                    <b>Roasted Chicken Bowl</b>
-                    <small>Herb chicken, rice, roasted veggies, lemon tahini</small>
-                  </div>
-                  <div class="price">$18</div>
-                </div>
-
-                <div class="menu-item">
-                  <div>
-                    <b>Spicy Vodka Rigatoni</b>
-                    <small>Calabrian chili, parmesan, basil (add chicken +$4)</small>
-                  </div>
-                  <div class="price">$19</div>
-                </div>
-
-                <div class="menu-item">
-                  <div>
-                    <b>Salmon + Greens</b>
-                    <small>Crispy salmon, citrus salad, cucumber, dill vinaigrette</small>
-                  </div>
-                  <div class="price">$22</div>
-                </div>
-
-                <div class="menu-item">
-                  <div>
-                    <b>Veggie Flatbread</b>
-                    <small>Roasted peppers, mushrooms, mozzarella, pesto drizzle</small>
-                  </div>
-                  <div class="price">$15</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3 style="margin-top:0;">Hours + Location</h3>
-              <p style="margin:0; color: var(--muted); font-size: 14px;">
-                Keep this block super clear — it’s one of the most-clicked sections.
-              </p>
-
-              <div style="height: 12px;"></div>
-
-              <div class="hours">
-                <div class="hours-row"><div>Tue–Thu</div><span>4pm – 9pm</span></div>
-                <div class="hours-row"><div>Fri</div><span>4pm – 10pm</span></div>
-                <div class="hours-row"><div>Sat</div><span>10am – 10pm</span></div>
-                <div class="hours-row"><div>Sun</div><span>10am – 8pm</span></div>
-                <div class="hours-row"><div>Mon</div><span>Closed</span></div>
-              </div>
-
-              <div style="height: 14px;"></div>
-
-              <div class="card" style="background: rgba(0,0,0,0.18); border-color: rgba(255,255,255,0.10);">
-                <p style="margin:0; color: var(--muted); font-size: 14px;">
-                  <b style="color: var(--text);">Address:</b> 123 Main Street, Minneapolis, MN<br />
-                  <b style="color: var(--text);">Phone:</b> (555) 123-4567<br />
-                  <b style="color: var(--text);">Parking:</b> Street + ramp across the block
-                </p>
-              </div>
-
-              <p class="hint" style="margin-top: 12px;">
-                Pro tip: embed Google Maps later (or link to directions).
+              <p class="mini">
+                123 Main Street •
+                <a href="#contact">hours</a> •
+                <a href="tel:+15551234567">(555) 123-4567</a>
               </p>
             </div>
+
+            <div class="mosaic" aria-label="Featured photos">
+              <div class="tile one">
+                <div class="tile-label">Weekend brunch</div>
+              </div>
+              <div class="tile two">
+                <div class="tile-label">Dinner plates</div>
+              </div>
+              <div class="tile wide">
+                <div class="tile-label">Drinks (and zero-proof)</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- REVIEWS -->
-      <section id="reviews">
+      <section id="varieties">
         <div class="container">
           <div class="section-head">
-            <h2>Reviews</h2>
-            <p>
-              Social proof sells. Use real Google reviews (with permission) once the client has them.
-            </p>
+            <h2>Menu</h2>
+            <p>Four snapshots. If you want the full list, link out to a PDF or a single “Full menu” page.</p>
           </div>
 
-          <div class="quotes">
-            <div class="card quote">
-              <div class="stars">★★★★★</div>
-              <p>“Best burger I’ve had in a long time. Service was fast and the place looks awesome.”</p>
-              <div class="who">
-                <span>Jordan M.</span>
-                <span style="color: var(--muted); font-weight: 800;">Local Guide</span>
+          <div class="card variety-shell">
+            <div class="variety-top">
+              <div>
+                <b>Pick a section</b><br />
+                <span>We update these regularly. Ask what’s new when you’re in.</span>
               </div>
-            </div>
 
-            <div class="card quote">
-              <div class="stars">★★★★★</div>
-              <p>“Perfect brunch spot. Great coffee, great vibe, and the portions are legit.”</p>
-              <div class="who">
-                <span>Taylor R.</span>
-                <span style="color: var(--muted); font-weight: 800;">Google Review</span>
-              </div>
-            </div>
+              <div class="tabs" role="tablist" aria-label="Menu sections">
+                <input type="radio" name="tabs" id="tab-brunch" checked />
+                <label for="tab-brunch" role="tab" aria-controls="panel-brunch">Brunch</label>
 
-            <div class="card quote">
-              <div class="stars">★★★★★</div>
-              <p>“Cocktails were on point. We booked online and got seated right away.”</p>
-              <div class="who">
-                <span>Sam K.</span>
-                <span style="color: var(--muted); font-weight: 800;">OpenTable</span>
+                <input type="radio" name="tabs" id="tab-dinner" />
+                <label for="tab-dinner" role="tab" aria-controls="panel-dinner">Dinner</label>
+
+                <input type="radio" name="tabs" id="tab-drinks" />
+                <label for="tab-drinks" role="tab" aria-controls="panel-drinks">Drinks</label>
+
+                <input type="radio" name="tabs" id="tab-dessert" />
+                <label for="tab-dessert" role="tab" aria-controls="panel-dessert">Dessert</label>
+
+                <div class="panels" style="width:100%;">
+                  <div class="panel" id="panel-brunch" role="tabpanel">
+                    <div class="variety-body">
+                      <div class="menu-grid">
+                        <div class="menu-list">
+                          <div class="item">
+                            <div>
+                              <b>Skillet hash</b>
+                              <small>roasted potatoes, peppers, onions, two eggs, hot sauce</small>
+                            </div>
+                            <div class="price">$14</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Ricotta pancakes</b>
+                              <small>whipped butter, maple, seasonal fruit</small>
+                            </div>
+                            <div class="price">$13</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Breakfast sandwich</b>
+                              <small>sausage, cheddar, egg, spicy mayo, brioche</small>
+                            </div>
+                            <div class="price">$12</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Market greens</b>
+                              <small>citrus vinaigrette, seeds, avocado (add chicken +$4)</small>
+                            </div>
+                            <div class="price">$11</div>
+                          </div>
+                        </div>
+
+                        <div class="side">
+                          <div class="card pad">
+                            <b style="font-family:var(--serif); font-size:16px;">Brunch hours</b>
+                            <div style="height:10px;"></div>
+                            <div class="hours">
+                              <div class="hours-row"><div>Sat</div><span>10am – 2pm</span></div>
+                              <div class="hours-row"><div>Sun</div><span>10am – 2pm</span></div>
+                            </div>
+                          </div>
+
+                          <div class="note">
+                            Heads up: we keep a few tables for walk-ins. If you can, show up early.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel" id="panel-dinner" role="tabpanel">
+                    <div class="variety-body">
+                      <div class="menu-grid">
+                        <div class="menu-list">
+                          <div class="item">
+                            <div>
+                              <b>North Star burger</b>
+                              <small>smash patty, cheddar, house sauce, pickles, fries</small>
+                            </div>
+                            <div class="price">$16</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Vodka rigatoni</b>
+                              <small>calabrian chili, parmesan, basil (add chicken +$4)</small>
+                            </div>
+                            <div class="price">$19</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Crispy salmon</b>
+                              <small>citrus salad, dill vinaigrette</small>
+                            </div>
+                            <div class="price">$22</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Veggie flatbread</b>
+                              <small>roasted peppers, mushrooms, mozzarella, pesto</small>
+                            </div>
+                            <div class="price">$15</div>
+                          </div>
+                        </div>
+
+                        <div class="side">
+                          <div class="card pad">
+                            <b style="font-family:var(--serif); font-size:16px;">Dinner hours</b>
+                            <div style="height:10px;"></div>
+                            <div class="hours">
+                              <div class="hours-row"><div>Tue–Thu</div><span>4pm – 9pm</span></div>
+                              <div class="hours-row"><div>Fri–Sat</div><span>4pm – 10pm</span></div>
+                              <div class="hours-row"><div>Mon</div><span>Closed</span></div>
+                            </div>
+                          </div>
+
+                          <div class="note" style="background: rgba(31,122,107,0.06);">
+                            Kitchen closes at 9. If you’re coming in after 8:30, call first.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel" id="panel-drinks" role="tabpanel">
+                    <div class="variety-body">
+                      <div class="menu-grid">
+                        <div class="menu-list">
+                          <div class="item">
+                            <div>
+                              <b>House old fashioned</b>
+                              <small>bourbon, bitters, orange, cherry</small>
+                            </div>
+                            <div class="price">$12</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Gimlet</b>
+                              <small>gin, lime, basil</small>
+                            </div>
+                            <div class="price">$11</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Zero-proof spritz</b>
+                              <small>citrus, herbs, soda (NA)</small>
+                            </div>
+                            <div class="price">$8</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Local tap</b>
+                              <small>rotating draft</small>
+                            </div>
+                            <div class="price">$7</div>
+                          </div>
+                        </div>
+
+                        <div class="side">
+                          <div class="card pad">
+                            <b style="font-family:var(--serif); font-size:16px;">Happy hour</b>
+                            <p style="margin:8px 0 0; color:var(--muted); font-weight:800; font-size:14px;">
+                              Tue–Thu • 4–6pm • $2 off drafts + select cocktails
+                            </p>
+                          </div>
+
+                          <div class="note" style="background: rgba(217,79,43,0.06);">
+                            If you don’t drink, we’ve got a few solid zero-proof options that aren’t just soda.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel" id="panel-dessert" role="tabpanel">
+                    <div class="variety-body">
+                      <div class="menu-grid">
+                        <div class="menu-list">
+                          <div class="item">
+                            <div>
+                              <b>Brown butter cake</b>
+                              <small>warm slice, vanilla cream, sea salt</small>
+                            </div>
+                            <div class="price">$9</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Chocolate mousse</b>
+                              <small>dark chocolate, espresso, whipped cream</small>
+                            </div>
+                            <div class="price">$8</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Seasonal sorbet</b>
+                              <small>ask what’s in today</small>
+                            </div>
+                            <div class="price">$7</div>
+                          </div>
+                          <div class="item">
+                            <div>
+                              <b>Affogato</b>
+                              <small>espresso over vanilla gelato</small>
+                            </div>
+                            <div class="price">$8</div>
+                          </div>
+                        </div>
+
+                        <div class="side">
+                          <div class="note">
+                            Desserts change a lot. If you’re deciding, just ask what people are ordering tonight.
+                          </div>
+
+                          <div class="card pad">
+                            <b style="font-family:var(--serif); font-size:16px;">After dinner</b>
+                            <p style="margin:8px 0 0; color:var(--muted); font-weight:800; font-size:14px;">
+                              Espresso, decaf, and a few small pours available.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      <!-- RESERVATIONS -->
       <section id="reserve">
         <div class="container">
           <div class="section-head">
             <h2>Reservations</h2>
-            <p>
-              This form is HTML/CSS only (no backend). If you want it to actually submit, connect Formspree
-              or a booking tool.
-            </p>
+            <p>Quick request form. If you’re building a real site, swap this button for OpenTable/Tock.</p>
           </div>
 
           <div class="reserve-grid">
-            <div class="card">
-              <h3 style="margin-top: 0;">Book a table</h3>
+            <div class="card pad">
+              <h3 style="margin:0 0 10px; font-family:var(--serif);">Request a table</h3>
+
               <form>
                 <div>
                   <label for="rname">Name</label>
@@ -745,33 +847,36 @@
                 </div>
 
                 <button class="btn primary" type="button">Request reservation</button>
-                <p class="hint">Demo button — doesn’t submit anywhere yet.</p>
+                <p class="hint">This is a demo button. It doesn’t submit anywhere yet.</p>
               </form>
             </div>
 
-            <div class="card" id="contact">
-              <h3 style="margin-top: 0;">Contact</h3>
-              <p style="margin: 0; color: var(--muted); font-size: 14px;">
-                <b style="color: var(--text);">North Star Kitchen</b><br />
-                Seasonal Restaurant &amp; Bar<br /><br />
-                Phone: (555) 123-4567<br />
-                Email: hello@northstarkitchen.com<br />
-                Address: 123 Main Street, Minneapolis, MN
+            <div class="card pad" id="contact">
+              <h3 style="margin:0 0 10px; font-family:var(--serif);">Hours &amp; contact</h3>
+
+              <p style="margin:0; color: var(--muted); font-size: 14px; font-weight: 800;">
+                <b style="color: var(--ink);">North Star Kitchen</b><br />
+                123 Main Street, Minneapolis, MN<br /><br />
+                <a href="tel:+15551234567">(555) 123-4567</a><br />
+                hello@northstarkitchen.com
               </p>
 
               <div style="height: 14px;"></div>
 
-              <div class="card" style="background: rgba(0,0,0,0.18); border-color: rgba(255,255,255,0.10);">
-                <h3 style="margin-top: 0;">Good to know</h3>
-                <p style="margin: 0; color: var(--muted); font-size: 14px;">
-                  Walk-ins are welcome. For groups of 7+, call us. For takeout, order by phone.
-                </p>
+              <div class="card pad" style="background: rgba(255,255,255,0.74); border-color: rgba(20,20,20,0.10); box-shadow:none;">
+                <b style="font-family:var(--serif); font-size:16px;">Hours</b>
+                <div style="height: 10px;"></div>
+                <div class="hours">
+                  <div class="hours-row"><div>Tue–Thu</div><span>4pm – 9pm</span></div>
+                  <div class="hours-row"><div>Fri</div><span>4pm – 10pm</span></div>
+                  <div class="hours-row"><div>Sat</div><span>10am – 10pm</span></div>
+                  <div class="hours-row"><div>Sun</div><span>10am – 8pm</span></div>
+                  <div class="hours-row"><div>Mon</div><span>Closed</span></div>
+                </div>
               </div>
 
-              <div style="height: 14px;"></div>
-
-              <p class="hint">
-                Next upgrade: add real reservations (OpenTable/Tock) + link to full menu PDF + photo gallery.
+              <p class="hint" style="margin-top: 12px;">
+                Parking tip: add one real detail here (ramp behind building, street parking after 6, etc.).
               </p>
             </div>
           </div>
@@ -784,11 +889,9 @@
         <div class="footer-row">
           <div>© 2026 North Star Kitchen</div>
           <div style="display:flex; gap:14px; flex-wrap:wrap;">
-            <a href="#menu-section">Menu</a>
-            <a href="#specials">Specials</a>
-            <a href="#reviews">Reviews</a>
+            <a href="#varieties">Menu</a>
             <a href="#reserve">Reservations</a>
-            <a href="#contact">Contact</a>
+            <a href="#contact">Hours &amp; contact</a>
           </div>
         </div>
       </div>
