@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | MinnWebb Design</title>
+    <meta
+      name="description"
+      content="Start your project with MinnWebb Design. Share your business, goals, budget, and timeline to request a website quote."
+    />
+
+    <style>
+      :root {
+        --bg: #0b0d10;
+        --surface: #121722;
+        --card: rgba(255, 255, 255, 0.06);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #f4f7fb;
+        --muted: rgba(244, 247, 251, 0.72);
+        --accent: #77c4ff;
+        --accent2: #b7ffcf;
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+        --radius: 18px;
+        --max: 1120px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background:
+          radial-gradient(1000px 700px at 10% 0%, rgba(119, 196, 255, 0.18), transparent 60%),
+          radial-gradient(900px 650px at 100% 10%, rgba(183, 255, 207, 0.12), transparent 55%),
+          linear-gradient(145deg, #0d3e58 0%, #126a9f 35%, #1ea886 100%);
+        background-attachment: fixed;
+        line-height: 1.55;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(var(--max), 92vw); margin: 0 auto; }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 13, 16, 0.72);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 0;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+      }
+
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 14px;
+        flex-wrap: wrap;
+      }
+
+      .navlinks a {
+        padding: 10px 10px;
+        border-radius: 14px;
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .navlinks a:hover,
+      .navlinks a.active {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 14px;
+        border-radius: 14px;
+        font-weight: 900;
+        font-size: 14px;
+        border: 1px solid transparent;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+        white-space: nowrap;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, rgba(119,196,255,0.95), rgba(119,196,255,0.65));
+        color: #091018;
+        box-shadow: var(--shadow);
+      }
+
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--border);
+        color: var(--text);
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+
+      main { padding: 52px 0 64px; }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .panel,
+      .card {
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .panel {
+        padding: 28px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: var(--accent2);
+        box-shadow: 0 0 0 6px rgba(183, 255, 207, 0.10);
+      }
+
+      h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(34px, 4.2vw, 52px);
+        line-height: 1.06;
+        letter-spacing: -0.8px;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 60ch;
+      }
+
+      .mini {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .info-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .info {
+        padding: 18px;
+      }
+
+      .info h3,
+      .card h2,
+      .card h3 {
+        margin-top: 0;
+      }
+
+      .info p,
+      .card p,
+      .card li {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .section {
+        margin-top: 24px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.25px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        outline: none;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(244, 247, 251, 0.45);
+      }
+
+      textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      .hint {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .checklist,
+      .steps {
+        display: grid;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .checklist li,
+      .steps li {
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .steps strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--text);
+      }
+
+      .action-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      footer {
+        padding: 26px 0 36px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .grid,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="nav" aria-label="Primary">
+          <a class="brand" href="index.html">
+            <img class="logo" src="images/minnwebblogo.png" alt="MinnWebb logo" />
+            <div>
+              MinnWebb Design
+              <small>We build. You grow.</small>
+            </div>
+          </a>
+
+          <div class="navlinks">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#work">Work</a>
+            <a href="index.html#offers">Offers</a>
+            <a href="us.html">Us</a>
+            <a class="active" href="contact.html">Contact</a>
+          </div>
+
+          <a class="btn primary" href="mailto:minnesota.webbsites@gmail.com">Email now</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero">
+          <div class="panel">
+            <div class="eyebrow"><span class="dot"></span> New websites, redesigns, and quick-turn pages</div>
+            <h1>Tell us about your business and we will map out the next step.</h1>
+            <p class="lead">
+              Whether you need a first website, a redesign, or a simple landing page, this is the fastest
+              way to start. Share the basics and we will reply with a recommended scope, timeline, and quote.
+            </p>
+            <div class="action-row">
+              <a class="btn primary" href="mailto:minnesota.webbsites@gmail.com?subject=Project%20Inquiry">Email project details</a>
+              <a class="btn ghost" href="index.html#work">See examples</a>
+            </div>
+            <p class="mini">Best first message: business type, pages needed, budget range, and any example sites you like.</p>
+          </div>
+
+          <div class="info-stack">
+            <div class="card info">
+              <h3>What to include</h3>
+              <ul class="checklist">
+                <li>Your business name and what you offer</li>
+                <li>The kind of site you need: new build, redesign, or one-page landing page</li>
+                <li>Your ideal launch timing and budget range</li>
+                <li>Any links, colors, or websites you want us to reference</li>
+              </ul>
+            </div>
+
+            <div class="card info">
+              <h3>Contact details</h3>
+              <p style="margin-bottom: 8px;">
+                <strong style="color: var(--text);">MinnWebb Design</strong><br />
+                Minnesota-based, remote-friendly
+              </p>
+              <p style="margin: 0;">
+                Email: minnesota.webbsites@gmail.com<br />
+                Response goal: within 1 business day
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section grid">
+          <div class="card">
+            <h2>Project inquiry</h2>
+            <p>
+              This page is ready for a real form hookup later. For now, it gives you a polished intake layout
+              and a clear structure for what prospects should send.
+            </p>
+
+            <form>
+              <div class="two-col">
+                <div>
+                  <label for="name">Name</label>
+                  <input id="name" name="name" placeholder="Your name" autocomplete="name" />
+                </div>
+                <div>
+                  <label for="business">Business name</label>
+                  <input id="business" name="business" placeholder="Your business" autocomplete="organization" />
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                </div>
+                <div>
+                  <label for="timeline">Timeline</label>
+                  <select id="timeline" name="timeline">
+                    <option>As soon as possible</option>
+                    <option>Within 2 weeks</option>
+                    <option>Within 1 month</option>
+                    <option>Just exploring</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div>
+                  <label for="type">Project type</label>
+                  <select id="type" name="type">
+                    <option>New website</option>
+                    <option>Website redesign</option>
+                    <option>Landing page</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="budget">Budget range</label>
+                  <select id="budget" name="budget">
+                    <option>Under $500</option>
+                    <option>$500-$1,000</option>
+                    <option>$1,000-$2,500</option>
+                    <option>$2,500+</option>
+                    <option>Need guidance</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="details">Project details</label>
+                <textarea
+                  id="details"
+                  name="details"
+                  placeholder="What does your business do? What pages do you need? Do you already have a logo, photos, or existing site?"
+                ></textarea>
+              </div>
+
+              <div class="action-row">
+                <button class="btn primary" type="button">Send request</button>
+                <a class="btn ghost" href="mailto:minnesota.webbsites@gmail.com?subject=Website%20Quote%20Request">Send by email instead</a>
+              </div>
+              <p class="hint">This demo button does not submit anywhere yet. Next upgrade: connect it to Formspree or your own backend.</p>
+            </form>
+          </div>
+
+          <div class="card">
+            <h2>What happens next</h2>
+            <ol class="steps">
+              <li>
+                <strong>1. We review your project</strong>
+                We look at your goals, business type, and the scope you described.
+              </li>
+              <li>
+                <strong>2. We reply with direction</strong>
+                You get a recommended page count, rough timeline, and pricing starting point.
+              </li>
+              <li>
+                <strong>3. We lock the plan</strong>
+                Once the scope feels right, we move into design and build.
+              </li>
+            </ol>
+
+            <div style="height: 14px;"></div>
+
+            <h3>Best fit for</h3>
+            <ul class="checklist">
+              <li>Local businesses that need a clean, trustworthy web presence</li>
+              <li>Founders who want a fast launch without a complicated process</li>
+              <li>Businesses replacing an outdated site that does not work well on phones</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <div>© 2026 MinnWebb Design</div>
+          <div class="navlinks">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#work">Work</a>
+            <a href="index.html#offers">Offers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
