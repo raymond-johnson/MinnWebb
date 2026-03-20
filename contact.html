@@ -409,15 +409,18 @@
           <div class="card">
             <h2>Project inquiry</h2>
             <p>
-              This page is ready for a real form hookup later. For now, it gives you a polished intake layout
-              and a clear structure for what prospects should send.
+              This form is ready for Formspree. Replace the placeholder action URL with your real Formspree
+              endpoint and submissions will be sent to your email inbox.
             </p>
 
-            <form>
+            <form
+              action="https://formspree.io/f/xzdjwppn"
+              method="POST"
+            >
               <div class="two-col">
                 <div>
                   <label for="name">Name</label>
-                  <input id="name" name="name" placeholder="Your name" autocomplete="name" />
+                  <input id="name" name="name" placeholder="Your name" autocomplete="name" required />
                 </div>
                 <div>
                   <label for="business">Business name</label>
@@ -428,7 +431,7 @@
               <div class="two-col">
                 <div>
                   <label for="email">Email</label>
-                  <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                  <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
                 </div>
                 <div>
                   <label for="timeline">Timeline</label>
@@ -469,14 +472,20 @@
                   id="details"
                   name="details"
                   placeholder="What does your business do? What pages do you need? Do you already have a logo, photos, or existing site?"
+                  required
                 ></textarea>
               </div>
 
+              <input type="hidden" name="_subject" value="New MinnWebb quote request" />
+
               <div class="action-row">
-                <button class="btn primary" type="button">Send request</button>
+                <button class="btn primary" type="submit">Send request</button>
                 <a class="btn ghost" href="mailto:minnesota.webbsites@gmail.com?subject=Website%20Quote%20Request">Send by email instead</a>
               </div>
-              <p class="hint">This demo button does not submit anywhere yet. Next upgrade: connect it to Formspree or your own backend.</p>
+              <p class="hint">
+                Replace `https://formspree.io/f/your-form-id` with your real Formspree URL. You can also replace
+                the `_next` value with your own thank-you page later.
+              </p>
             </form>
           </div>
 
