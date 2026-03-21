@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Us | MinnWebb Design</title>
+    <link rel="icon" type="image/png" href="images/minnwebblogo.png" />
+    <meta
+      name="description"
+      content="Meet the team behind MinnWebb Design and learn how we help small businesses launch clean, modern websites."
+    />
     <style>
       :root {
         --bg: #0b0d10;
@@ -20,9 +25,15 @@
       * { box-sizing: border-box; }
       html, body { margin: 0; min-height: 100%; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: linear-gradient(145deg, #0d3e58 0%, #126a9f 35%, #1ea886 100%); }
       a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
       .container { width: min(var(--max), 92vw); margin: 0 auto; padding: 24px 0; }
       header { margin-bottom: 24px; }
-      .home-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,0.08); }
+      .topbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 0 0 8px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: 0.2px; }
+      .logo { width: 40px; height: 40px; border-radius: 14px; overflow: hidden; box-shadow: 0 12px 35px rgba(0,0,0,0.45); }
+      .logo img { width: 100%; height: 100%; object-fit: cover; }
+      .brand small { display: block; color: var(--muted); font-weight: 700; letter-spacing: 0.3px; }
+      .home-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,0.08); font-weight: 800; }
       .home-link::before { content: none; }
       .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
       .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
@@ -33,21 +44,34 @@
   </head>
   <body>
     <div class="container">
+      <header>
+        <div class="topbar">
+          <a class="brand" href="index.html">
+            <span class="logo"><img src="images/minnwebblogo.png" alt="MinnWebb logo" /></span>
+            <span>
+              MinnWebb Design
+              <small>We build. You grow.</small>
+            </span>
+          </a>
+
+          <a class="home-link" href="index.html">Back to home</a>
+        </div>
+      </header>
+
       <section class="section">
         <h1>Us</h1>
-        <p>Meet the team that powers MinnWebb. We build strong websites and set you up for growth.</p>
+        <p>Meet the team behind MinnWebb Design. We build clean, modern websites that help small businesses look sharp and grow with confidence.</p>
         <div class="cards">
           <article class="card">
             <h3>Brady</h3>
-            <p>Founder &amp; product lead. Brady turns customer goals into clear digital strategy and project outcomes.</p>
+            <p>Founder and product lead. Brady helps shape the direction of each project and keeps the work focused, clear, and useful for the business behind it.</p>
           </article>
           <article class="card">
             <h3>Avery</h3>
-            <p>Design and development leader. Avery creates polished user experiences and ensures your brand is consistent across screens.</p>
+            <p>Design and development lead. Avery turns ideas into polished layouts, consistent branding, and websites that feel strong on every screen.</p>
           </article>
         </div>
       </section>
-      <p style="margin-top: 18px;"><a class="home-link" href="index.html">← Back to menu</a></p>
     </div>
   </body>
 </html>
